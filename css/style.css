@@ -1,0 +1,150 @@
+/* main stylesheet, mobile styles first then desktop at bottom */
+
+/* colours in one place so theyre easy to change */
+:root {
+    --bg: #0f1a2b;        /* page background, dark navy */
+    --panel: #172742;     /* sidebar, header, cards */
+    --border: #2a3d5c;
+    --text: #e4ebf5;
+    --muted: #9fb0c8;     /* secondary text */
+    --accent: #4f9cf9;    /* links, buttons */
+    --accent-dark: #3a7fd6;
+    --star: #f5b83d;
+    --error: #ff6b6b;
+    --ok: #4fd18a;
+}
+
+* { box-sizing: border-box; }
+
+/* one font everywhere */
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+}
+
+a { color: var(--accent); }
+/* visible focus ring for keyboard users */
+a:focus, button:focus, input:focus, select:focus {
+    outline: 3px solid var(--star);
+    outline-offset: 2px;
+}
+
+/* stop images overflowing on small screens */
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3 { line-height: 1.2; margin: 1.2rem 0 0.6rem; font-weight: 600; }
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1.1rem; }
+
+/* centre content and cap width */
+.container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
+
+/* skip link, hidden until tab focus */
+.skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--accent); color: #fff; padding: 0.5rem 1rem;
+}
+.skip-link:focus { left: 0; z-index: 10; }
+
+/* header and nav */
+.site-header {
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo { color: var(--text); text-decoration: none; font-size: 1.3rem; font-weight: 700; }
+.menu-toggle { background: none; border: 1px solid var(--border); color: var(--text); font-size: 1.3rem; padding: 0.2rem 0.6rem; cursor: pointer; border-radius: 4px; }
+/* nav hidden on mobile, .open added by js */
+.site-nav { display: none; width: 100%; flex-direction: column; margin-top: 0.6rem; }
+.site-nav.open { display: flex; }
+.site-nav a { color: var(--text); text-decoration: none; padding: 0.5rem 0; border-top: 1px solid var(--border); }
+.site-nav a:hover { color: var(--accent); }
+
+.site-footer { text-align: center; padding: 1.5rem; margin-top: 2rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; }
+
+/* forms and buttons */
+.field { margin-bottom: 0.9rem; }
+label { display: block; font-weight: 600; margin-bottom: 0.25rem; font-size: 0.9rem; color: var(--muted); }
+/* full width inputs so they're easy to tap on mobile */
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], select {
+    width: 100%; padding: 0.55rem; font-size: 1rem; font-family: inherit;
+    color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+}
+.btn {
+    display: inline-block; background: var(--accent); color: #fff; border: none;
+    padding: 0.55rem 1.1rem; font-size: 0.95rem; font-family: inherit; font-weight: 600;
+    border-radius: 4px; cursor: pointer; text-decoration: none;
+}
+.btn:hover { background: var(--accent-dark); }
+.btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-secondary:hover { background: var(--border); }
+.actions { display: flex; gap: 0.5rem; align-items: flex-end; }
+
+.search-form { background: var(--panel); padding: 1rem; border-radius: 6px; border: 1px solid var(--border); }
+.auth-form { max-width: 420px; }
+
+/* error / success boxes */
+.errors { background: rgba(255,107,107,0.12); border-left: 4px solid var(--error); padding: 0.8rem 1rem 0.8rem 2rem; }
+.js-error { color: var(--error); min-height: 1.4rem; margin: 0.3rem 0; }
+.flash { background: rgba(79,209,138,0.12); border-left: 4px solid var(--ok); padding: 0.6rem 1rem; }
+
+/* search page, filters and results stacked on mobile, side by side on desktop */
+.search-layout { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+.filters h1 { margin-top: 0; }
+.result-count { color: var(--muted); margin-top: 0; }
+
+/* recipe rows on home and account page */
+.recipe-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); }
+.recipe-row {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 0.4rem 1rem;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border);
+}
+.recipe-row:hover { background: var(--panel); }
+/* thumbnail spans all rows of text on mobile */
+.recipe-row img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; grid-row: 1 / 5; }
+.recipe-row h2, .recipe-row h3 { margin: 0; font-size: 1.05rem; }
+.recipe-row h2 a, .recipe-row h3 a { color: var(--text); text-decoration: none; }
+.recipe-row h2 a:hover, .recipe-row h3 a:hover { color: var(--accent); }
+.recipe-row .col { color: var(--muted); font-size: 0.9rem; }
+.recipe-row .rating { color: var(--star); }
+.recipe-row form { margin: 0; }
+.meta { color: var(--muted); font-size: 0.95rem; }
+
+/* single recipe page */
+.recipe-hero { width: 100%; max-height: 380px; object-fit: cover; border-radius: 6px; }
+.recipe-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end; margin: 1rem 0; }
+.rate-form { display: flex; gap: 0.5rem; align-items: flex-end; }
+.rate-form label { margin: 0; }
+.rate-form select { width: auto; }
+.ingredients li, .steps li { margin-bottom: 0.4rem; }
+.steps li { margin-bottom: 1rem; }
+.steps p { margin: 0; }
+.step-time { font-size: 0.85rem; color: var(--muted); }
+
+/* wider screens, nav inline, filter sidebar left, results right */
+@media (min-width: 800px) {
+    .menu-toggle { display: none; }
+    .site-nav { display: flex; flex-direction: row; width: auto; margin: 0; gap: 1.2rem; }
+    .site-nav a { border: none; padding: 0; }
+
+    .search-layout { grid-template-columns: 280px 1fr; align-items: start; }
+    /* sidebar stays in view when scrolling results */
+    .filters { position: sticky; top: 1rem; }
+
+    /* row becomes one line with fixed columns like a table */
+    .recipe-row { grid-template-columns: 60px 2fr 90px 90px 120px auto; gap: 1rem; }
+    .recipe-row img { grid-row: auto; }
+}
